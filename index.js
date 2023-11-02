@@ -7,79 +7,63 @@ const data = require("./data");
 
 const MONGODB_URI = "mongodb://127.0.0.1:27017/recipe-app";
 
+
 // Connection to the database "recipe-app"
-mongoose
-  .connect(MONGODB_URI)
-  .then((x) => {
-    console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
-    return Recipe.deleteMany();
-  })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-    /*const newRecipe = {
+const connection = async () => {
+  try {
+    await mongoose.connect(MONGODB_URI)
+    const recipe =  await Recipe.create( {
       title: "Asian Glazed Chicken Thighs",
       level: "Amateur Chef",
       ingredients: [
-      "1/2 cup rice vinegar",
-      "5 tablespoons honey",
-      "1/3 cup soy sauce (such as Silver Swan®)",
-      "1/4 cup Asian (toasted) sesame oil",
-      "3 tablespoons Asian chili garlic sauce",
-      "3 tablespoons minced garlic",
-      "salt to taste",
-      "8 skinless, boneless chicken thighs"
-    ],
-    cuisine: "Asian",
-    dishType: "main_course",
-    image: "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
-    duration: 40,
-    creator: "Chef LePapu"
-    };
-    return Recipe.create(newRecipe)
-  })
-  .then((newRecipe)=>{
-    console.log("la receta es ", newRecipe.title)
-  })*/
-
-
-    //itiration 3
-    /*return Recipe.insertMany(data);
-  })
-  .then((data)=>{
-      console.log("la receta es ", data)
-    })*/
-
-
-  //iteration 4
-  /*.then(()=>{
-    const recetaupd = Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true})
-    return recetaupd
-    })
-    .then((recetaupd)=>{
-      console.log("la receta es ", recetaupd)
-    })*/
-
-
-  //iteration 5
-  /*.then(() => {
-    const recetaDel = Recipe.findOneAndDelete(
-      { title: "Carrot Cake" },
-      { new: true }
-    );
-    return recetaDel;
-  })
-  .then((recetaDel) => {
-    console.log("la receta es ", recetaDel);
-  });*/
-
-
-//iteration 6
-/*.then(()=>{
-return mongoose.connection
-  .close()
-})*/
-})
-  .catch((error) => {
-    console.error("Error connecting to the database", error);
-  });
+        "1/2 cup rice vinegar",
+        "5 tablespoons honey",
+        "1/3 cup soy sauce (such as Silver Swan®)",
+        "1/4 cup Asian (toasted) sesame oil",
+        "3 tablespoons Asian chili garlic sauce",
+        "3 tablespoons minced garlic",
+        "salt to taste",
+        "8 skinless, boneless chicken thighs"
+      ],
+      cuisine: "Asian",
+      dishType: "main_course",
+      image: "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+      duration: 40,
+      creator: "Chef LePapu"
+    } )
+    console.log(recipe)
+  } catch(err) {
+    console.log(err)
+  }
+}
+connection()
+//   .then((x) => {
+//     console.log(`Connected to the database: "${x.connection.name}"`);
+//     // Before adding any recipes to the database, let's remove all existing ones
+//     return Recipe.deleteMany();
+//   })
+//   .then((response) => {
+//     const recipe = Recipe.create( {
+//       title: "Asian Glazed Chicken Thighs",
+//       level: "Amateur Chef",
+//       ingredients: [
+//         "1/2 cup rice vinegar",
+//         "5 tablespoons honey",
+//         "1/3 cup soy sauce (such as Silver Swan®)",
+//         "1/4 cup Asian (toasted) sesame oil",
+//         "3 tablespoons Asian chili garlic sauce",
+//         "3 tablespoons minced garlic",
+//         "salt to taste",
+//         "8 skinless, boneless chicken thighs"
+//       ],
+//       cuisine: "Asian",
+//       dishType: "main_course",
+//       image: "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+//       duration: 40,
+//       creator: "Chef LePapu"
+//     } )
+//     console.log(recipe)
+// })
+//   .catch((error) => {
+//     console.error("Error connecting to the database", error);
+//   });
